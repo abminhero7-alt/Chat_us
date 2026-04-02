@@ -1,0 +1,308 @@
+/* ================================================================
+   nav.css — Global Navigation (Pill Style, Theme-Aware)
+   ================================================================ */
+
+.main-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-surface);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--border-soft);
+    border-radius: 100px;
+    z-index: 1000;
+    transition: var(--transition-theme),
+                top 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+    overflow: visible;
+    box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 480px) {
+    .main-nav {
+        top: 10px;
+        width: 95%;
+        padding: 8px 16px;
+        gap: 8px;
+    }
+    
+    /* Ensure nav fits on very small screens */
+    .nav-logo img {
+        height: 32px;
+    }
+    
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+        min-width: 38px;
+        min-height: 38px;
+    }
+    
+    .hamburger {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+    }
+}
+
+.main-nav.scrolled {
+    top: 10px;
+    padding: 8px 40px;
+    border-color: var(--border-accent);
+    box-shadow: var(--shadow-main);
+}
+
+/* Logo */
+.nav-logo {
+    display: block;
+    grid-column: 1;
+    justify-self: start;
+}
+
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-logo img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    filter: var(--filter-logo);
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+    transition: filter 0.45s ease;
+    perspective: 1000px;
+    animation: logoSlowFlip 16s linear infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes logoSlowFlip {
+    from { transform: rotateY(0deg); }
+    to   { transform: rotateY(360deg); }
+}
+
+.nav-logo a:hover img {
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+}
+
+/* Nav links */
+.nav-links {
+    grid-column: 2;
+    justify-self: center;
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* Touch target */
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--nav-text);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    position: relative;
+    padding: 0 5px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    touch-action: manipulation;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-glow);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nav-links li a:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+/* Actions area */
+.nav-actions {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    width: 44px; /* Touch target */
+    height: 44px; /* Touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    color: var(--text-primary);
+    line-height: 1;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.15);
+    background: var(--accent-blue-light);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 12px var(--accent-glow);
+}
+
+/* ── SVG Icon Animations ────────────────────────────────────── */
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                filter 0.5s ease;
+}
+
+.theme-toggle:hover svg {
+    filter: drop-shadow(0 0 4px var(--accent-glow));
+}
+
+.icon-moon { transform: rotate(-15deg); }
+.theme-toggle:hover .icon-moon { transform: rotate(0deg) scale(1.1); }
+
+.icon-sun { transform: rotate(90deg) scale(0.9); }
+.theme-toggle:hover .icon-sun { transform: rotate(135deg) scale(1.1); }
+
+.icon-search { transition: transform 0.4s ease; }
+.theme-toggle:hover .icon-search { transform: scale(1.12); }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+    touch-action: manipulation;
+    pointer-events: auto !important;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 2px;
+    background: var(--hamburger-color);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .main-nav {
+        padding: 10px 20px;
+        gap: 8px;
+        max-width: 100%;
+    }
+
+    .main-nav.scrolled {
+        padding: 8px 20px;
+    }
+
+    .nav-logo {
+        justify-self: start;
+    }
+
+    .nav-logo img {
+        height: 38px;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    /* Mobile nav drawer — handled by mobile-menu-fix.css */
+    .nav-links {
+        display: flex;
+    }
+
+    .theme-toggle {
+        width: 42px;
+        height: 42px;
+        font-size: 1rem;
+        flex-shrink: 0;
+        min-width: 42px;
+        min-height: 42px;
+    }
+
+    /* Hide the AI search button on very small screens if nav is tight */
+    .ai-search-trigger {
+        display: none;
+    }
+}
+/* ── Header Brand Label ───────────────────────────────────────── */
+.header-brand-label {
+    position: relative; /* Normal document flow */
+    z-index: 10;
+    
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(to bottom, var(--text-primary) 30%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.03em;
+    
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 10px; /* spacing below the brand label */
+    padding: 0;
+    
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.1));
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .header-brand-label {
+    background: linear-gradient(to bottom, var(--text-primary) 30%, var(--accent-blue-dark, #0056b3) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

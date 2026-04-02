@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-800;
+  }
+
+  body {
+    @apply bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:ring-gray-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm transition-all duration-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 placeholder:text-gray-400 dark:placeholder:text-gray-500;
+  }
+
+  .card {
+    @apply rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm;
+  }
+
+  .avatar {
+    @apply relative rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center;
+  }
+
+  .avatar-sm {
+    @apply w-8 h-8 text-xs;
+  }
+
+  .avatar-md {
+    @apply w-10 h-10 text-sm;
+  }
+
+  .avatar-lg {
+    @apply w-12 h-12 text-base;
+  }
+
+  .avatar-xl {
+    @apply w-16 h-16 text-lg;
+  }
+
+  .avatar-xxl {
+    @apply w-24 h-24 text-2xl;
+  }
+
+  .badge {
+    @apply inline-flex items-center justify-center rounded-full text-xs font-medium px-2 py-0.5;
+  }
+
+  .badge-primary {
+    @apply bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400;
+  }
+
+  .badge-success {
+    @apply bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400;
+  }
+
+  .message-bubble-sent {
+    @apply bg-primary-600 text-white rounded-2xl rounded-br-md;
+  }
+
+  .message-bubble-received {
+    @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md shadow-sm;
+  }
+
+  .typing-dot {
+    @apply w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce;
+  }
+
+  .status-ring-online {
+    @apply ring-2 ring-green-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+  }
+
+  .status-ring-away {
+    @apply ring-2 ring-yellow-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+  }
+
+  .status-ring-busy {
+    @apply ring-2 ring-red-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+  }
+
+  .chat-bg {
+    @apply bg-[url('/icons/chat-bg-light.png')] dark:bg-[url('/icons/chat-bg-dark.png')] bg-repeat;
+  }
+
+  .glass {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

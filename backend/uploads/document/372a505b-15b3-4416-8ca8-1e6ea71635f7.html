@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About BSD Design &amp; Management — Our History &amp; Mission</title>
+    <link rel="icon" href="noback2.png" type="image/png">
+    <link rel="shortcut icon" href="noback2.png" type="image/png">
+    <meta name="description"
+        content="Discover the history, mission, and integrated values of BSD Design &amp; Management. We merge architecture, engineering, and IT to build the city of tomorrow.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260327c">
+    <link rel="stylesheet" href="nav.css?v=20260401c">
+    <link rel="stylesheet" href="about.css?v=20260327c">
+    <link rel="stylesheet" href="dept-transitions.css?v=20260327c">
+    <link rel="stylesheet" href="ai-system.css?v=20260401d">
+    <link rel="stylesheet" href="responsive-fixes.css?v=20260401d">
+    <link rel="stylesheet" href="mobile-menu-fix.css?v=20260401d">
+    <link rel="stylesheet" href="hamburger-fix.css?v=20260401c">
+    <link rel="stylesheet" href="responsive-fixes-end.css?v=20260402a">
+    <link rel="stylesheet" href="i18n.css?v=20260402a">
+
+    <script>
+        (function () {
+            let s = null; try { s = localStorage.getItem('bsd-theme'); } catch (_) {}
+            const d = s !== 'light';
+            document.documentElement.setAttribute('data-theme', d ? 'dark' : 'light');
+            document.documentElement.classList.toggle('dark', d);
+            document.documentElement.classList.toggle('light', !d);
+        })();
+    </script>
+</head>
+
+<body class="about-page">
+    <!-- NAVIGATION -->
+    <nav class="main-nav" id="main-nav">
+        <div class="nav-logo">
+            <a href="index.html" data-menu-close><img src="noback2.png" alt="BSD Design Logo"></a>
+        </div>
+        <ul class="nav-links" data-nav>
+            <div class="mobile-menu-header">
+                <span class="mm-tag">Navigation</span>
+                <button class="menu-close-btn" data-menu-close aria-label="Close Menu">×</button>
+            </div>
+            <li><a href="index.html" data-menu-close>Home</a></li>
+            <li><a href="departments.html" data-menu-close>Departments</a></li>
+            <li><a href="about.html" class="active" data-menu-close>About</a></li>
+            <li><a href="portfolio.html" data-menu-close>Portfolio</a></li>
+            <li><a href="contact.html" data-menu-close>Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Night Mode">🌙</button>
+            <button type="button" class="hamburger" id="hamburger" data-menu-toggle aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="nav-overlay" data-overlay></div>
+
+    <main>
+        <!-- HERO -->
+        <section class="about-hero reveal-3d">
+            <h1 class="about-title">Pioneering Integrated<br>Excellence</h1>
+            <p class="about-intro-text">BSD Design &amp; Management was founded to bridge the gap between creative
+                architecture, structural resilience, and digital intelligence. Our multidisciplinary approach ensures
+                every project is more than just a building—it's a high-performance ecosystem.</p>
+        </section>
+
+        <!-- MISSION / VISION / VALUES -->
+        <section class="about-grid">
+            <div class="about-card reveal-card">
+                <h3>Our Mission</h3>
+                <p>To redefine urban landscapes through seamless integration of architecture, civil engineering, and
+                    intelligent technological solutions, creating spaces that inspire and endure.</p>
+            </div>
+            <div class="about-card reveal-card">
+                <h3>Our Vision</h3>
+                <p>To be the global benchmark for multidisciplinary design hubs—where the physical and digital worlds
+                    coexist in perfect structural and aesthetic harmony.</p>
+            </div>
+            <div class="about-card reveal-card">
+                <h3>Our Values</h3>
+                <p>Innovation at the core, sustainability in every beam, and absolute precision in digital delivery. We
+                    believe in building for the next century, not just the next decade.</p>
+            </div>
+        </section>
+
+        <!-- SAMPLE WORKS -->
+        <section class="sample-works">
+            <span class="section-label">Selected Works Selection</span>
+
+            <div class="work-gallery">
+                <div class="work-item reveal-panel">
+                    <div class="work-img-wrap">
+                        <img src="axel-towers-building-view-from-street-copenhagen-downtown-denmark_759575-1984.jpg" alt="Axel towers"
+                            class="work-img">
+                    </div>
+                    <div class="work-info">
+                        <h3>The Diamond Monolith</h3>
+                        <p>An award-winning architectural landmark utilizing parametric glass facets to maximize thermal
+                            efficiency and natural light distribution across 42 levels of premium office space.</p>
+                    </div>
+                </div>
+
+                <div class="work-item reveal-panel">
+                    <div class="work-img-wrap">
+                        <img src="beautiful-modern-building-modern-architecture_181624-21692.jpg"
+                            alt="Cyber Hub" class="work-img">
+                    </div>
+                    <div class="work-info">
+                        <h3>Cyber-Centric Hub</h3>
+                        <p>A flagship IT and data center integration project. This facility features a self-cooling
+                            facade and 10 Tbps fiber-optic backbone, setting a new standard for mission-critical
+                            infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="work-item reveal-panel">
+                    <div class="work-img-wrap">
+                        <img src="pexels-davideibiza-1734326.jpg" alt="Harbor Bridge" class="work-img">
+                    </div>
+                    <div class="work-info">
+                        <h3>Grand Harbor Crossing</h3>
+                        <p>Our Civil Engineering masterpiece — a cable-stayed bridge spanning 2.8 km. It incorporates
+                            smart structural health monitoring sensors that provide real-time data to municipal
+                            operators.</p>
+                    </div>
+                </div>
+
+                <div class="work-item reveal-panel">
+                    <div class="work-img-wrap">
+                        <img src="architecture.jpg"
+                            alt="Interior Systems" class="work-img">
+                    </div>
+                    <div class="work-info">
+                        <h3>Integrated Systems Module</h3>
+                        <p>Showcasing our Sanitary and MEP engineering prowess. This internal complex manages greywater
+                            recycling for the entire district with zero chemical discharge.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER will be injected here by footer.js -->
+    <footer class="home-footer"></footer>
+
+        <script src="i18n.js?v=20260402a"></script>
+<script src="nav.js?v=20260401f"></script>
+    <script src="bsd-3d.js?v=20260327c"></script>
+    <script src="footer.js"></script>
+    <script src="ai-engine.js?v=20260327c"></script>
+</body>
+
+</html>

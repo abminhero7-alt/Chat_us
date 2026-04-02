@@ -1,0 +1,276 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String    @id @default(cuid())
+  email                String?   @unique
+  phone                String?   @unique
+  username             String?   @unique
+  password             String?
+  displayName          String
+  avatarUrl            String?
+  statusMessage        String?
+  onlineStatus         String    @default("OFFLINE")
+  lastSeen             DateTime?
+  role                 String    @default("USER")
+  isVerified           Boolean   @default(false)
+  isTwoFactorEnabled   Boolean   @default(false)
+  twoFactorSecret      String?
+  refreshToken         String?
+  fcmToken             String?
+  theme                String    @default("light")
+  chatBgUrl            String?
+  lastSeenPrivacy      String    @default("EVERYONE")
+  profilePhotoPrivacy  String    @default("EVERYONE")
+  statusPrivacy        String    @default("EVERYONE")
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  sentMessages         Message[] @relation("SentMessages")
+  receivedChats        ChatParticipant[]
+  ownedChats           Chat[]    @relation("ChatOwner")
+  reactions            Reaction[]
+  starredMessages      Message[] @relation("StarredMessages")
+  calls                Call[]    @relation("CallerCalls")
+  receivedCalls        Call[]    @relation("ReceiverCalls")
+  statuses             Status[]
+  contacts             Contact[] @relation("UserContacts")
+  contactOf            Contact[] @relation("ContactOf")
+  notifications        Notification[]
+  refreshTokens        RefreshToken[]
+  mentions             Message[] @relation("MessageMentions")
+
+  @@index([email])
+  @@index([phone])
+  @@index([onlineStatus])
+}
+
+model Chat {
+  id          String   @id @default(cuid())
+  type        String
+  name        String?
+  description String?
+  avatarUrl   String?
+  ownerId     String?
+  owner       User?    @relation("ChatOwner", fields: [ownerId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  participants  ChatParticipant[]
+  messages      Message[]
+  calls         Call[]
+  pinnedBy      ChatPin[]
+  archivedBy    ChatArchive[]
+  mutedBy       ChatMute[]
+
+  @@index([type])
+  @@index([ownerId])
+}
+
+model ChatParticipant {
+  id        String   @id @default(cuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   @default("MEMBER")
+  joinedAt  DateTime @default(now())
+
+  @@unique([chatId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id              String   @id @default(cuid())
+  chatId          String
+  chat            Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  senderId        String
+  sender          User     @relation("SentMessages", fields: [senderId], references: [id])
+  content         String?
+  type            String   @default("TEXT")
+  mediaUrl        String?
+  thumbnailUrl    String?
+  status          String   @default("SENT")
+  isEdited        Boolean  @default(false)
+  isDeleted       Boolean  @default(false)
+  replyToId       String?
+  replyTo         Message? @relation("ReplyMessages", fields: [replyToId], references: [id])
+  replies         Message[] @relation("ReplyMessages")
+  forwardedFromId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  reactions       Reaction[]
+  readBy          MessageRead[]
+  deliveredTo     MessageDelivery[]
+  starredBy       User[]    @relation("StarredMessages")
+  mentions        User[]    @relation("MessageMentions")
+
+  @@index([chatId])
+  @@index([senderId])
+  @@index([createdAt])
+  @@index([status])
+}
+
+model MessageRead {
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  userId    String
+  readAt    DateTime @default(now())
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+model MessageDelivery {
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  userId    String
+  deliveredAt DateTime @default(now())
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+model Reaction {
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emoji     String
+  createdAt DateTime @default(now())
+
+  @@unique([messageId, userId])
+  @@index([messageId])
+}
+
+model Call {
+  id         String    @id @default(cuid())
+  callerId   String
+  caller     User      @relation("CallerCalls", fields: [callerId], references: [id])
+  receiverId String?
+  receiver   User?     @relation("ReceiverCalls", fields: [receiverId], references: [id])
+  chatId     String?
+  chat       Chat?     @relation(fields: [chatId], references: [id])
+  type       String
+  status     String    @default("INITIATED")
+  startedAt  DateTime?
+  endedAt    DateTime?
+  duration   Int?
+  createdAt  DateTime  @default(now())
+
+  @@index([callerId])
+  @@index([receiverId])
+  @@index([chatId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Status {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String
+  content     String?
+  mediaUrl    String?
+  thumbnailUrl String?
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  views       StatusView[]
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model StatusView {
+  id       String   @id @default(cuid())
+  statusId String
+  status   Status   @relation(fields: [statusId], references: [id], onDelete: Cascade)
+  userId   String
+  viewedAt DateTime @default(now())
+
+  @@unique([statusId, userId])
+}
+
+model Contact {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation("UserContacts", fields: [userId], references: [id], onDelete: Cascade)
+  contactUserId String
+  contactUser   User     @relation("ContactOf", fields: [contactUserId], references: [id], onDelete: Cascade)
+  isBlocked     Boolean  @default(false)
+  addedAt       DateTime @default(now())
+
+  @@unique([userId, contactUserId])
+  @@index([userId])
+  @@index([contactUserId])
+}
+
+model ChatPin {
+  id        String   @id @default(cuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  userId    String
+  pinnedAt  DateTime @default(now())
+
+  @@unique([chatId, userId])
+}
+
+model ChatArchive {
+  id         String   @id @default(cuid())
+  chatId     String
+  chat       Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  userId     String
+  archivedAt DateTime @default(now())
+
+  @@unique([chatId, userId])
+}
+
+model ChatMute {
+  id         String   @id @default(cuid())
+  chatId     String
+  chat       Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  userId     String
+  mutedUntil DateTime?
+  mutedAt    DateTime @default(now())
+
+  @@unique([chatId, userId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String
+  title     String
+  body      String
+  data      String?  @default("{}")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
