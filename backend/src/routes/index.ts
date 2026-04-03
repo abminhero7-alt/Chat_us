@@ -14,6 +14,11 @@ import { authRateLimiter, generalRateLimiter } from '../middleware/rateLimiter.j
 const router = Router();
 const upload = multer({ dest: 'uploads/' });
 
+// API root - health check
+router.get('/', (req, res) => {
+  res.json({ success: true, message: 'Chat API is running', version: '1.0.0' });
+});
+
 // Auth routes
 router.post('/auth/register', authRateLimiter, authController.register);
 router.post('/auth/login', authRateLimiter, authController.login);
