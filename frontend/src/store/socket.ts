@@ -15,14 +15,9 @@ export const useSocketStore = create<SocketState>((set, get) => ({
   socket: null,
   isConnected: false,
   connect: (token: string) => {
-    // Use same host as the page (works on PC, phone, any device)
-    const wsUrl = typeof window !== 'undefined'
-      ? `${window.location.protocol}//${window.location.hostname}:3001`
-      : 'http://localhost:3001';
+    console.log('[Socket] Connecting to:', SOCKET_URL);
 
-    console.log('[Socket] Connecting to:', wsUrl);
-
-    const socket = io(wsUrl, {
+    const socket = io(SOCKET_URL, {
       auth: { token },
       transports: ['websocket', 'polling'],
       reconnection: true,

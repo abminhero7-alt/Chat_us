@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '@/store/auth';
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.4:3001/api', // Your computer's local IP
+  baseURL: 'https://chat-us-g21z.onrender.com/api',
   headers: { 'Content-Type': 'application/json' },
 });
 

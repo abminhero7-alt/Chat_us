@@ -12,7 +12,7 @@ import EmojiPicker from '@/components/chat/EmojiPicker';
 import { cn, formatTime, formatDate } from '@/utils/helpers';
 import toast from 'react-hot-toast';
 
-const API_URL = process.env.API_URL || 'http://localhost:3001/api';
+const API_URL = process.env.API_URL || 'https://chat-us-g21z.onrender.com/api';
 const BASE_URL = API_URL.replace('/api', '');
 
 interface PendingFile {
