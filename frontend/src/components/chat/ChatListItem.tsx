@@ -11,6 +11,8 @@ interface ChatListItemProps {
 }
 
 export default function ChatListItem({ chat, isActive, onClick }: ChatListItemProps) {
+  if (!chat) return null;
+  
   const lastMsg = chat.lastMessage;
   const isOwn = lastMsg?.senderId === (typeof window !== 'undefined' ? localStorage.getItem('userId') : null);
 
