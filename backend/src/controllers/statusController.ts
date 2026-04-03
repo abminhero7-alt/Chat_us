@@ -70,9 +70,7 @@ export const getMyStatuses = async (req: AuthRequest, res: Response) => {
       },
       include: {
         views: {
-          include: {
-            user: { select: { id: true, displayName: true, avatarUrl: true } },
-          },
+          where: { userId: req.user!.id },
         },
       },
       orderBy: { createdAt: 'desc' },

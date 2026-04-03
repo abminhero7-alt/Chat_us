@@ -58,7 +58,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
-    const googleUser: GoogleUser = await userRes.json();
+    const googleUser = await userRes.json() as GoogleUser;
 
     let user = await prisma.user.findUnique({ where: { email: googleUser.email } });
 
@@ -118,7 +118,7 @@ export const facebookCallback = async (req: Request, res: Response) => {
     }
 
     const userRes = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${tokenData.access_token}`);
-    const fbUser: FacebookUser = await userRes.json();
+    const fbUser = await userRes.json() as FacebookUser;
 
     let user = await prisma.user.findUnique({ where: { email: fbUser.email } });
 
