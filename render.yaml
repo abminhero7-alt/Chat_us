@@ -30,18 +30,6 @@ services:
         value: '*'
     healthCheckPath: /
 
-  - type: web
-    name: chat-us-frontend
-    runtime: static
-    plan: free
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend/dist
-    envVars:
-      - key: NEXT_PUBLIC_API_URL
-        value: https://chat-us-g21z.onrender.com/api
-      - key: NEXT_PUBLIC_WS_URL
-        value: https://chat-us-g21z.onrender.com
-
 databases:
   - name: chat-us-db
     plan: free
