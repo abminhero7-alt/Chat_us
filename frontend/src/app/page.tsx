@@ -29,7 +29,13 @@ export default function Home() {
     return () => disconnect();
   }, [isHydrated, token, connect, disconnect, router]);
 
-  if (!isHydrated || !token) return null;
+  if (!isHydrated || !token) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-950">
