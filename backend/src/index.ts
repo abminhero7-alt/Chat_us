@@ -23,6 +23,9 @@ if (!existsSync(uploadsDir)) {
 const app = express();
 const httpServer = createServer(app);
 
+// Trust proxy for express-rate-limit to work with Render
+app.set('trust proxy', 1);
+
 const io = new Server(httpServer, {
   cors: {
     origin: '*',
