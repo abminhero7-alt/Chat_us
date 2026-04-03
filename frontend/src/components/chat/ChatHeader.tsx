@@ -15,6 +15,21 @@ export default function ChatHeader({ chat }: ChatHeaderProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
+  // Guard against undefined chat
+  if (!chat) {
+    return (
+      <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+        <button
+          onClick={() => setActiveChat(null)}
+          className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <ArrowLeft size={20} />
+        </button>
+        <span className="text-gray-500">Loading...</span>
+      </div>
+    );
+  }
+
   const otherUser = chat.type === 'PRIVATE' ? {
     name: chat.name,
     avatar: chat.avatarUrl,
