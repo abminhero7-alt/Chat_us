@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: chat-us-backend
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install && npx prisma generate && npm run build
+    startCommand: cd backend && npx prisma migrate deploy && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: REFRESH_TOKEN_EXPIRES_IN
+        value: 30d
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chat-us-db
+          property: connectionString
+      - key: API_URL
+        value: https://chat-us-g21z.onrender.com
+      - key: FRONTEND_URL
+        value: https://chat-us.vercel.app
+      - key: CORS_ORIGIN
+        value: '*'
+    healthCheckPath: /
+
+  - type: web
+    name: chat-us-frontend
+    runtime: static
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://chat-us-g21z.onrender.com/api
+      - key: NEXT_PUBLIC_WS_URL
+        value: https://chat-us-g21z.onrender.com
+
+databases:
+  - name: chat-us-db
+    plan: free
+    databaseName: chatus
+    user: chatus
