@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '@/store/auth';
 
 const api = axios.create({
-  baseURL: 'https://chat-us-g21z.onrender.com/api',
+  baseURL: process.env.API_URL || 'https://chat-us-g21z.onrender.com/api',
   headers: { 'Content-Type': 'application/json' },
 });
 

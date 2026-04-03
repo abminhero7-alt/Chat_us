@@ -9,8 +9,8 @@ const nextConfig = {
     ],
   },
   env: {
-    API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
-    WS_URL: process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3001',
+    API_URL: 'https://chat-us-g21z.onrender.com/api',
+    WS_URL: 'https://chat-us-g21z.onrender.com',
   },
   experimental: {
     serverActions: {

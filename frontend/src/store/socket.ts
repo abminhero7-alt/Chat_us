@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { io, Socket } from 'socket.io-client';
 
+const SOCKET_URL = process.env.WS_URL || 'https://chat-us-g21z.onrender.com';
+
 interface SocketState {
   socket: Socket | null;
   isConnected: boolean;
