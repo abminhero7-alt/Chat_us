@@ -62,6 +62,11 @@ app.use(generalRateLimiter);
 
 app.use('/api', routes);
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ success: true, message: 'Chat API is running', version: '1.0.0', docs: '/api' });
+});
+
 // Favicon - prevent 404 in browser
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
