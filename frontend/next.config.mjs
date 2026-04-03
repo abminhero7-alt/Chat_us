@@ -8,21 +8,14 @@ const nextConfig = {
       { protocol: 'https', hostname: 'ui-avatars.com' },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*',
-      },
-      {
-        source: '/uploads/:path*',
-        destination: 'http://localhost:3001/uploads/:path*',
-      },
-    ];
-  },
   env: {
-    API_URL: '/api',
-    WS_URL: 'http://localhost:3001',
+    API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
+    WS_URL: process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3001',
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
 };
 

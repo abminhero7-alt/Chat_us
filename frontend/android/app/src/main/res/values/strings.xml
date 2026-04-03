@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Chat Us</string>
+    <string name="title_activity_main">Chat Us</string>
+    <string name="package_name">com.chat.us.app</string>
+    <string name="custom_url_scheme">com.chat.us.app</string>
+</resources>

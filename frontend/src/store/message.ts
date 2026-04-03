@@ -69,7 +69,7 @@ export const useMessageStore = create<MessageState>((set) => ({
       messages: {
         ...state.messages,
         [chatId]: (state.messages[chatId] || []).map((m) =>
-          m.id === messageId ? { ...m, isDeleted: true, content: null } : m
+          m.id === messageId ? { ...m, isDeleted: true, content: undefined } : m
         ),
       },
     })),

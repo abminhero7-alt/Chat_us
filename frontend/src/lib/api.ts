@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useAuthStore } from '@/store/auth';
 
 const api = axios.create({
-  baseURL: '/api', // Use relative URL so it works through the tunnel
+  baseURL: 'http://192.168.1.4:3001/api', // Your computer's local IP
   headers: { 'Content-Type': 'application/json' },
 });
 

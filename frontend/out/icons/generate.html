@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<script>
+const canvas = document.createElement('canvas');
+canvas.width = 512;
+canvas.height = 512;
+const ctx = canvas.getContext('2d');
+
+// Background
+ctx.fillStyle = '#2563eb';
+ctx.beginPath();
+ctx.roundRect(0, 0, 512, 512, 112);
+ctx.fill();
+
+// Chat bubble
+ctx.fillStyle = '#ffffff';
+ctx.beginPath();
+ctx.moveTo(140, 200);
+ctx.quadraticCurveTo(140, 140, 200, 140);
+ctx.lineTo(312, 140);
+ctx.quadraticCurveTo(372, 140, 372, 200);
+ctx.lineTo(372, 248);
+ctx.quadraticCurveTo(372, 308, 312, 308);
+ctx.lineTo(260, 308);
+ctx.lineTo(220, 340);
+ctx.lineTo(228, 308);
+ctx.lineTo(200, 308);
+ctx.quadraticCurveTo(140, 308, 140, 248);
+ctx.fill();
+
+// Dots
+ctx.fillStyle = '#2563eb';
+[196, 256, 316].forEach(x => {
+  ctx.beginPath();
+  ctx.arc(x, 224, 14, 0, Math.PI * 2);
+  ctx.fill();
+});
+
+// Download 192
+canvas.toBlob(blob => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'icon-192.png';
+  a.click();
+}, 'image/png');
+
+// Download 512
+setTimeout(() => {
+  canvas.toBlob(blob => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'icon-512.png';
+    a.click();
+  }, 'image/png');
+}, 500);
+</script>
+<p>Downloading icons...</p>
+</body>
+</html>
