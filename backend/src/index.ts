@@ -59,6 +59,9 @@ app.use(generalRateLimiter);
 
 app.use('/api', routes);
 
+// Favicon - prevent 404 in browser
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
